@@ -8,7 +8,7 @@ import numpy as np
 import os, base64, openai
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key')
+
 
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -368,4 +368,5 @@ def profile():
                         history=analysis_history)
 
 if __name__ == '__main__':
+
     app.run(debug=True)
