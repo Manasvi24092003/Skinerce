@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Skinerce Assistant{% endblock %}
+
+{% block content %}
+
+<div class="assistant-container">
+    <div class="assistant-header">
+        <h2><img src="{{ url_for('static', filename='images/ai-icon.svg') }}" alt="AI Assistant" class="ai-icon">
+            Skinerce Assistant</h2>
+        <button class="close-btn" onclick="window.history.back()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div id="chat-messages" class="chat-messages">
+        <div class="message assistant welcome-message">
+            <div class="message-content">
+                <strong>Hi there! 👋</strong><br><br>
+                I'm your Skinerce AI Assistant. I can help with:<br>
+                • Explaining your skin analysis<br>
+                • Recommending skincare routines<br>
+                • Answering dermatology questions<br><br>
+                What would you like to know today?
+            </div>
+        </div>
+        {% if initial_question %}
+        <div class="message user">
+            <div class="message-content">{{ initial_question }}</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Type your skin question..." 
+               value="{{ initial_question if initial_question else '' }}">
+        <script>
+            document.getElementById('user-input').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    sendMessage();
+                }
+            });
+        </script>
+        <button id="send-button" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/assistant.js') }}"></script>
+{% endblock %}

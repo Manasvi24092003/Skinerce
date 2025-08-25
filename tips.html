@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Tips & Home Remedies{% endblock %}
+
+{% block content %}
+<section class="tips-section">
+    <h2>Tips & Home Remedies</h2>
+    
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <i class="fas fa-fire"></i> Acne Treatments
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+                <h4>Home Remedies for Acne</h4>
+                <ul>
+                    <li><strong>Tea Tree Oil:</strong> Dilute with water and apply to affected areas with a cotton swab.</li>
+                    <li><strong>Honey & Cinnamon Mask:</strong> Mix 2 tbsp honey with 1 tsp cinnamon, apply for 10-15 minutes.</li>
+                    <li><strong>Green Tea:</strong> Apply cooled green tea to skin or drink 2-3 cups daily.</li>
+                </ul>
+                <h4>Recommended Products</h4>
+                <ul>
+                    <li>Salicylic acid cleansers (2%)</li>
+                    <li>Benzoyl peroxide spot treatments (2.5-5%)</li>
+                    <li>Non-comedogenic moisturizers</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <i class="fas fa-dot-circle"></i> Blackhead Solutions
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+                <h4>Home Remedies for Blackheads</h4>
+                <ul>
+                    <li><strong>Baking Soda:</strong> Mix with water to form a paste, gently exfoliate.</li>
+                    <li><strong>Steam Treatment:</strong> Steam face for 5-10 minutes to open pores.</li>
+                    <li><strong>Clay Masks:</strong> Use bentonite or kaolin clay 1-2 times weekly.</li>
+                </ul>
+                <h4>Recommended Products</h4>
+                <ul>
+                    <li>BHAs (salicylic acid) 1-2%</li>
+                    <li>Charcoal-based cleansers</li>
+                    <li>Retinoids (for prevention)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <i class="fas fa-moon"></i> Dark Spot Correctors
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+                <h4>Home Remedies for Dark Spots</h4>
+                <ul>
+                    <li><strong>Lemon Juice:</strong> Apply diluted lemon juice to spots (avoid sun after).</li>
+                    <li><strong>Aloe Vera:</strong> Apply fresh aloe gel overnight.</li>
+                    <li><strong>Vitamin E Oil:</strong> Massage into spots daily.</li>
+                </ul>
+                <h4>Recommended Products</h4>
+                <ul>
+                    <li>Vitamin C serums (10-20%)</li>
+                    <li>Niacinamide treatments (5%)</li>
+                    <li>Chemical exfoliants (AHAs like glycolic acid)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <i class="fas fa-wind"></i> Anti-Aging Solutions
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+                <h4>Home Remedies for Wrinkles</h4>
+                <ul>
+                    <li><strong>Coconut Oil:</strong> Massage into skin at night.</li>
+                    <li><strong>Egg White Mask:</strong> Apply whipped egg whites for temporary tightening.</li>
+                    <li><strong>Avocado Mask:</strong> Mash avocado with honey, apply for 15 minutes.</li>
+                </ul>
+                <h4>Recommended Products</h4>
+                <ul>
+                    <li>Retinol creams (start with 0.25-0.5%)</li>
+                    <li>Peptide serums</li>
+                    <li>Hyaluronic acid moisturizers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll('.accordion-header').forEach(button => {
+    button.addEventListener('click', () => {
+        const item = button.parentNode;
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('.fa-chevron-down');
+        
+        item.classList.toggle('active');
+        
+        if (item.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+            content.style.maxHeight = 0;
+            icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+    });
+});
+</script>
+{% endblock %}

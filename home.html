@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Skinerce - AI Skin Analysis{% endblock %}
+
+{% block content %}
+<!-- Simple Toggle Switch -->
+    <!-- Add this to your navbar -->
+    <div class="theme-switcher">
+        <input type="checkbox" id="theme-toggle" class="theme-checkbox">
+        <label for="theme-toggle" class="theme-label">
+        <span class="sun">☀️</span>
+        <span class="moon">🌙</span>
+        <div class="theme-ball"></div>
+        </label>
+    </div>
+<section class="hero">
+    <!-- 3D Animation Background -->
+    <div id="skinCellAnimation" class="three-d-animation"></div>
+    <!-- Animated Skin Cells Background -->
+<!-- 3D Skin Cell Animation -->
+ <!-- Inside templates/home.html -->
+    <div class="auth-buttons">
+        <button onclick="location.href='/login'" class="btn-login">Login</button>
+        <button onclick="location.href='/signup'" class="btn-signup">Sign Up</button>
+    </div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="animated-title">
+                <span class="title-word">Revolutionize</span>
+                <span class="title-word">Your</span>
+                <span class="title-word">Skincare</span>
+            </h1>
+            <p class="tagline">AI-powered skin analysis for personalized recommendations</p>
+            
+            <div class="cta-buttons">
+                <a href="{{ url_for('analysis') }}" class="btn-analyze pulse-on-hover">
+                    <i class="fas fa-camera"></i> Instant Analysis
+                </a>
+                <a href="{{ url_for('questionnaire') }}" class="btn-quiz slide-on-hover">
+                    <i class="fas fa-clipboard-list"></i> Skin Quiz
+                </a>
+            </div>
+        </div>
+        
+        <!-- Interactive Skin Demo -->
+        <div class="skin-demo">
+            <div class="demo-container">
+                <div class="skin-area" id="skinDemo">
+                    <div class="skin-overlay"></div>
+                    <div class="skin-issues">
+                        <div class="issue acne" data-tooltip="Acne"></div>
+                        <div class="issue wrinkle" data-tooltip="Wrinkles"></div>
+                        <div class="issue dark-spot" data-tooltip="Dark Spots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <!-- Animated Features Grid -->
+    <div class="features-container">
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3>AI Analysis</h3>
+            <p>Advanced machine learning detects 8+ skin conditions with 95% accuracy</p>
+        </div>
+        
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">
+                <i class="fas fa-burn"></i>
+            </div>
+            <h3>Personalized Plans</h3>
+            <p>Custom routines tailored to your unique skin profile</p>
+        </div>
+        
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Progress Tracking</h3>
+            <p>Monitor improvements with our visual dashboard</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Carousel -->
+<section class="testimonials">
+    <h2 class="section-title">Trusted by Thousands</h2>
+    <div class="carousel">
+        <div class="testimonial active">
+            <div class="quote">"Cleared my acne in 3 weeks!"</div>
+            <div class="author">- Sarah, 24</div>
+        </div>
+        <div class="testimonial">
+            <div class="quote">"Finally understand my skin needs"</div>
+            <div class="author">- Michael, 31</div>
+        </div>
+        <div class="testimonial">
+            <div class="quote">"Best investment in my skincare"</div>
+            <div class="author">- Priya, 28</div>
+        </div>
+        <div class="carousel-nav">
+            <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Animation Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<!-- Homepage Scripts -->
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+<script>
+    // Initialize animations
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out'
+    });
+    
+    // Animate title words
+    gsap.from('.title-word', {
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 1,
+        ease: 'power3.out'
+    });
+</script>
+{% endblock %}

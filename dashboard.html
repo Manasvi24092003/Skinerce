@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="dashboard-section">
+    <h2>Your Skin Analysis Dashboard</h2>
+    
+    <div class="dashboard-container">
+        <div class="stats-card">
+            <h3>Analysis History</h3>
+            {% if history %}
+            <div class="history-list">
+                {% for item in history %}
+                <div class="history-item">
+                    <span class="date">{{ item.date }}</span>
+                    <span class="condition {{ item.condition }}">{{ item.condition|capitalize }}</span>
+                    <span class="confidence">{{ item.confidence }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No analysis history yet. <a href="{{ url_for('analysis') }}">Analyze your skin</a> to get started!</p>
+            {% endif %}
+        </div>
+        
+        <div class="chart-card">
+            <h3>Condition Trends</h3>
+            <div class="chart-placeholder">
+                <p>Chart visualization would appear here with real data.</p>
+                <div class="fake-chart">
+                    <div class="chart-bar" style="height: 70%;" data-condition="acne">Acne</div>
+                    <div class="chart-bar" style="height: 40%;" data-condition="blackheads">Blackheads</div>
+                    <div class="chart-bar" style="height: 30%;" data-condition="darkspots">Dark Spots</div>
+                    <div class="chart-bar" style="height: 50%;" data-condition="wrinkles">Wrinkles</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

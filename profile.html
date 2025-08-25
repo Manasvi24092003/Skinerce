@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <h2>Your Profile</h2>
+    
+    <div class="profile-container">
+        <div class="user-info">
+            <div class="avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="details">
+                <h3>Welcome Back!</h3>
+                <p>Member since: January 2023</p>
+            </div>
+        </div>
+        
+        {% if questionnaire %}
+        <div class="skin-profile">
+            <h3>Your Skin Profile</h3>
+            <div class="primary-concern">
+                <h4>Primary Concern:</h4>
+                <div class="concern-tag {{ questionnaire.primary_concern }}">
+                    {{ questionnaire.primary_concern|capitalize }}
+                </div>
+            </div>
+            
+            <div class="recommended-ingredients">
+                <h4>Recommended Ingredients:</h4>
+                <div class="ingredients-list">
+                    {% for ingredient in questionnaire.ingredients %}
+                    <span class="ingredient">{{ ingredient }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p>You haven't completed the questionnaire yet.</p>
+            <a href="{{ url_for('questionnaire') }}" class="btn-gradient">
+                Take Skin Questionnaire
+            </a>
+        </div>
+        {% endif %}
+        
+        <div class="recent-history">
+            <h3>Recent Analysis</h3>
+            {% if history %}
+            <div class="history-grid">
+                {% for item in history[:3] %}
+                <div class="history-card">
+                    <div class="condition-badge {{ item.condition }}"></div>
+                    <div class="details">
+                        <span class="date">{{ item.date }}</span>
+                        <span class="condition">{{ item.condition|capitalize }}</span>
+                        <span class="confidence">{{ item.confidence }}% confidence</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('dashboard') }}" class="view-all">View All Analysis</a>
+            {% else %}
+            <p>No analysis history yet.</p>
+            <a href="{{ url_for('analysis') }}" class="btn-gradient-outline">
+                Analyze Your Skin
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

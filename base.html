@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skinerce - {% block title %}{% endblock %}</title>
+    <!-- CSS Links -->
+     <!-- Add this in the head section -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Replace emoji with Font Awesome -->
+    <span class="sun"><i class="fas fa-sun"></i></span>
+    <span class="moon"><i class="fas fa-moon"></i></span>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Skinerce Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ url_for('analysis') }}"><i class="fas fa-camera"></i> Analysis</a></li>
+                    <li><a href="{{ url_for('questionnaire') }}"><i class="fas fa-question-circle"></i> Questionnaire</a></li>
+                    <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="{{ url_for('tips') }}"><i class="fas fa-lightbulb"></i> Tips</a></li>
+                    <li><a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- AI Assistant Floating Button -->
+        <!-- AI Assistant Floating Button -->
+        <div class="assistant-float">
+            <button class="assistant-btn" onclick="window.location.href='/assistant'">
+                <img src="{{ url_for('static', filename='images/ai-icon.png') }}" alt="AI Assistant" class="assistant-icon">                <span class="assistant-tooltip">Ask about your skin!</span>
+            </button>
+    
+            <div class="quick-actions">
+                <div class="quick-action" onclick="window.location.href='/assistant?q=Explain my analysis results'">
+                    <i class="fas fa-microscope"></i> Explain Analysis
+                </div>
+                <div class="quick-action" onclick="window.location.href='/assistant?q=Recommend a skincare routine'">
+                    <i class="fas fa-spa"></i> Routine Tips
+                </div>
+                <div class="quick-action" onclick="window.location.href='/assistant?q=Best treatments for acne'">
+                    <i class="fas fa-bacteria"></i> Acne Treatments
+                </div>
+            </div>
+        </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Skinerce. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/assistant.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/three-animation.js') }}"></script>
+    {% block scripts %}{% endblock %}
+
+    <!-- Assistant Functions -->
+    <script>
+    function toggleAssistant() {
+        const assistantContainer = document.getElementById('assistant-container');
+        if (assistantContainer) {
+            assistantContainer.classList.toggle('visible');
+            if (assistantContainer.classList.contains('visible')) {
+                setTimeout(() => {
+                    const input = document.getElementById('user-input');
+                    if (input) input.focus();
+                }, 300);
+            }
+        } else {
+            window.location.href = "/assistant";
+        }
+    }
+
+    function askQuestion(question) {
+        if (document.getElementById('assistant-container')) {
+            const input = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            if (input && sendButton) {
+                input.value = question;
+                sendButton.click();
+            }
+        } else {
+            window.location.href = `/assistant?q=${encodeURIComponent(question)}`;
+        }
+    }
+    </script>
+    <script src="{{ url_for('static', filename='js/three-animation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Results - Skinerce{% endblock %}
+
+{% block content %}
+<section class="results-section">
+    <div class="container">
+        <h2><i class="fas fa-clipboard-check"></i> Analysis Results</h2>
+        
+        <div class="results-container">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <img src="{{ url_for('static', filename=result.image_path.replace('static/', '')) }}" 
+                         alt="Analyzed Skin Image"
+                         class="analyzed-image">
+                    <div class="image-source">
+                        {% if result.source == 'webcam' %}
+                        <i class="fas fa-camera"></i> Webcam Capture
+                        {% else %}
+                        <i class="fas fa-file-upload"></i> {{ result.filename }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-details">
+                <div class="result-card">
+                    <h3><i class="fas fa-diagnoses"></i> Condition Detected</h3>
+                    <div class="condition {{ result.condition }}">
+                        <span class="condition-icon">
+                            {% if result.condition == 'acne' %}
+                            <i class="fas fa-fire"></i>
+                            {% elif result.condition == 'blackheads' %}
+                            <i class="fas fa-circle"></i>
+                            {% elif result.condition == 'darkspots' %}
+                            <i class="fas fa-moon"></i>
+                            {% elif result.condition == 'wrinkles' %}
+                            <i class="fas fa-wind"></i>
+                            {% endif %}
+                        </span>
+                        <span class="condition-text">{{ result.condition|capitalize }}</span>
+                    </div>
+                    
+                    <div class="confidence">
+                        <div class="confidence-meter">
+                            <div class="meter-fill" style="width: {{ result.confidence|default(0)|float }}%"></div>
+                        </div>
+                        <span class="confidence-value">{{ result.confidence|default(0)|float|round(1) }}% confidence</span>
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Recommendations</h3>
+                    <div class="recommendation-content">
+                        {% if result.condition == 'acne' %}
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Use gentle, non-comedogenic cleansers twice daily</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Apply products with 2% salicylic acid or 2.5-5% benzoyl peroxide</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Avoid touching your face and change pillowcases weekly</span>
+                        </div>
+                        
+                        {% elif result.condition == 'blackheads' %}
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Use BHA exfoliant (2% salicylic acid) 2-3 times weekly</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Apply clay masks once weekly to absorb excess oil</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Consider professional extraction for stubborn blackheads</span>
+                        </div>
+                        
+                        {% elif result.condition == 'darkspots' %}
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Apply vitamin C serum (10-20%) in the morning</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Use broad-spectrum sunscreen (SPF 30+) daily</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Try products with 5% niacinamide for evening skin tone</span>
+                        </div>
+                        
+                        {% elif result.condition == 'wrinkles' %}
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Start with low-concentration retinol (0.25%) at night</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Apply hyaluronic acid serums for hydration</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Use sunscreen daily to prevent further damage</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <a href="{{ url_for('tips') }}" class="btn-gradient">
+                        <i class="fas fa-lightbulb"></i> View Detailed Tips
+                    </a>
+                    <a href="{{ url_for('questionnaire') }}" class="btn-gradient-outline">
+                        <i class="fas fa-clipboard-list"></i> Complete Skin Profile
+                    </a>
+                    <a href="{{ url_for('analysis') }}" class="btn-gradient-outline">
+                        <i class="fas fa-redo"></i> New Analysis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

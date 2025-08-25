@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block title %}Skin Questionnaire - Skinerce{% endblock %}
+
+{% block content %}
+<section class="questionnaire-section">
+    <div class="container">
+        <div class="questionnaire-header">
+            <h2><i class="fas fa-clipboard-list"></i> Skin Analysis Questionnaire</h2>
+            <p class="subtitle">Answer these 5 questions to get your personalized skin profile</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="question-progress"></div>
+            </div>
+        </div>
+        
+        <form method="POST" action="{{ url_for('questionnaire') }}" id="skin-questionnaire">
+            <!-- Question 1 -->
+            <div class="question-card active" id="q1">
+                <div class="question-header">
+                    <span class="question-number">1/5</span>
+                    <h3>How often do you experience breakouts or acne?</h3>
+                </div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="breakouts" value="never" required>
+                        <span class="option-content">
+                            <i class="fas fa-smile"></i>
+                            <span>Never</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="breakouts" value="rarely">
+                        <span class="option-content">
+                            <i class="fas fa-meh"></i>
+                            <span>Rarely</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="breakouts" value="sometimes">
+                        <span class="option-content">
+                            <i class="fas fa-frown"></i>
+                            <span>Sometimes</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="breakouts" value="often">
+                        <span class="option-content">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Often</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="breakouts" value="very_often">
+                        <span class="option-content">
+                            <i class="fas fa-angry"></i>
+                            <span>Very Often</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" id="q2">
+                <div class="question-header">
+                    <span class="question-number">2/5</span>
+                    <h3>How would you describe your skin's oiliness?</h3>
+                </div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="oiliness" value="dry" required>
+                        <span class="option-content">
+                            <i class="fas fa-tint-slash"></i>
+                            <span>Dry</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="oiliness" value="normal">
+                        <span class="option-content">
+                            <i class="fas fa-tint"></i>
+                            <span>Normal</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="oiliness" value="combination">
+                        <span class="option-content">
+                            <i class="fas fa-adjust"></i>
+                            <span>Combination</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="oiliness" value="oily">
+                        <span class="option-content">
+                            <i class="fas fa-tint"></i>
+                            <span>Oily</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="oiliness" value="very_oily">
+                        <span class="option-content">
+                            <i class="fas fa-tint"></i>
+                            <span>Very Oily</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" id="q3">
+                <div class="question-header">
+                    <span class="question-number">3/5</span>
+                    <h3>Does your skin get easily irritated or sensitive?</h3>
+                </div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="sensitivity" value="never" required>
+                        <span class="option-content">
+                            <i class="fas fa-smile"></i>
+                            <span>Never</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="sensitivity" value="rarely">
+                        <span class="option-content">
+                            <i class="fas fa-meh"></i>
+                            <span>Rarely</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="sensitivity" value="sometimes">
+                        <span class="option-content">
+                            <i class="fas fa-frown"></i>
+                            <span>Sometimes</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="sensitivity" value="often">
+                        <span class="option-content">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Often</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="sensitivity" value="very_often">
+                        <span class="option-content">
+                            <i class="fas fa-angry"></i>
+                            <span>Very Often</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" id="q4">
+                <div class="question-header">
+                    <span class="question-number">4/5</span>
+                    <h3>How concerned are you about aging or wrinkles?</h3>
+                </div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="aging" value="not_concerned" required>
+                        <span class="option-content">
+                            <i class="fas fa-smile"></i>
+                            <span>Not Concerned</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="aging" value="slightly">
+                        <span class="option-content">
+                            <i class="fas fa-meh"></i>
+                            <span>Slightly</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="aging" value="concerned">
+                        <span class="option-content">
+                            <i class="fas fa-frown"></i>
+                            <span>Concerned</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="aging" value="very_concerned">
+                        <span class="option-content">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Very Concerned</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" id="q5">
+                <div class="question-header">
+                    <span class="question-number">5/5</span>
+                    <h3>Do you have issues with dark spots or uneven skin tone?</h3>
+                </div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="pigmentation" value="never" required>
+                        <span class="option-content">
+                            <i class="fas fa-smile"></i>
+                            <span>Never</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="pigmentation" value="rarely">
+                        <span class="option-content">
+                            <i class="fas fa-meh"></i>
+                            <span>Rarely</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="pigmentation" value="sometimes">
+                        <span class="option-content">
+                            <i class="fas fa-frown"></i>
+                            <span>Sometimes</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="pigmentation" value="often">
+                        <span class="option-content">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Often</span>
+                        </span>
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="pigmentation" value="very_often">
+                        <span class="option-content">
+                            <i class="fas fa-angry"></i>
+                            <span>Very Often</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-gradient-outline" id="prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button type="button" class="btn-gradient" id="next-btn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="btn-gradient" id="submit-btn">
+                    <i class="fas fa-spinner fa-spin" id="submit-spinner" style="display:none;"></i>
+                    <span id="submit-text">Get Your Skin Profile</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/questionnaire.js') }}"></script>
+{% endblock %}

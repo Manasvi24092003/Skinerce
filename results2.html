@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Personalized Skin Profile - Skinerce{% endblock %}
+
+{% block content %}
+<section class="questionnaire-results">
+    <div class="container">
+        <div class="results-header">
+            <h2><i class="fas fa-user-circle"></i> Your Skin Profile</h2>
+            <p class="timestamp">Created on {{ questionnaire_results.timestamp }}</p>
+        </div>
+        
+        <div class="profile-card">
+            <div class="primary-concern">
+                <h3><i class="fas fa-exclamation-triangle"></i> Primary Concern</h3>
+                <div class="concern-badge {{ questionnaire_results.primary_concern }}">
+                    {{ questionnaire_results.primary_concern|replace('_',' ')|title }}
+                </div>
+            </div>
+            
+            <div class="additional-concerns">
+                <h3><i class="fas fa-clipboard-list"></i> Other Concerns</h3>
+                {% if questionnaire_results.concerns|length > 1 %}
+                <div class="concerns-list">
+                    {% for concern in questionnaire_results.concerns if concern != questionnaire_results.primary_concern %}
+                    <span class="concern-tag {{ concern }}">{{ concern|replace('_',' ')|title }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="no-concerns">No additional concerns identified</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="recommendations-section">
+            <h3><i class="fas fa-magic"></i> Recommended Routine</h3>
+            
+            <div class="routine-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Cleansing</h4>
+                    <ul>
+                        <li>{{ questionnaire_results.recommendations[0] }}</li>
+                        <li>Use lukewarm water</li>
+                        <li>Pat dry, don't rub</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Treatment</h4>
+                    <ul>
+                        <li>{{ questionnaire_results.recommendations[1] }}</li>
+                        <li>Apply to clean, dry skin</li>
+                        <li>Start with every other day</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Protection</h4>
+                    <ul>
+                        <li>{{ questionnaire_results.recommendations[2] }}</li>
+                        <li>Apply as last morning step</li>
+                        <li>Reapply every 2 hours if outdoors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <div class="action-buttons">
+                <a href="{{ url_for('tips') }}" class="btn-gradient">
+                    <i class="fas fa-lightbulb"></i> View Detailed Guides
+                </a>
+                
+                <a href="{{ url_for('profile') }}" class="btn-gradient-outline">
+                    <i class="fas fa-save"></i> Save to Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

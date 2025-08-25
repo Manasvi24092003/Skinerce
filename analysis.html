@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Skin Analysis{% endblock %}
+
+{% block content %}
+<section class="analysis-section">
+    <h2>Skin Analysis</h2>
+    
+    <div class="analysis-options">
+        <div class="upload-option">
+            <h3>Upload Image</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file-upload" accept="image/*" required>
+                <label for="file-upload" class="btn-gradient">
+                    <i class="fas fa-cloud-upload-alt"></i> Choose File
+                </label>
+                <div id="file-info" class="file-info"></div>
+                <div id="upload-preview" style="display:none; margin:1rem 0;">
+                    <img id="uploaded-preview" style="max-width:100%; max-height:300px; border-radius:8px;">
+                    <div class="file-meta">
+                        <span id="filename-display"></span>
+                        <span id="filesize-display"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-gradient">Analyze</button>
+            </form>
+        </div>
+        
+        <div class="or-divider">
+            <span>OR</span>
+        </div>
+        
+        <div class="webcam-option">
+            <h3>Use Webcam</h3>
+            <div class="webcam-container">
+                <button id="enable-camera" class="btn-gradient">
+                    <i class="fas fa-camera"></i> Enable Camera
+                </button>
+                <video id="webcam" autoplay playsinline style="display:none;"></video>
+                <button id="capture-btn" class="btn-gradient" style="display:none;">
+                    <i class="fas fa-camera"></i> Capture
+                </button>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <div id="preview-container" style="display:none; margin:1rem 0;">
+                    <img id="preview-image" style="max-width:100%; max-height:300px; border-radius:8px;">
+                    <div class="webcam-actions">
+                        <button id="retake-btn" class="btn-gradient-outline">
+                            <i class="fas fa-sync-alt"></i> Retake
+                        </button>
+                        <button id="analyze-btn" class="btn-gradient">
+                            <i class="fas fa-search"></i> Analyze
+                        </button>
+                    </div>
+                </div>
+                <form id="webcam-form" method="POST" action="{{ url_for('webcam_capture') }}">
+                    <input type="hidden" name="webcam_image" id="webcam-image">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/webcam.js') }}"></script>
+<script>
+// File upload handling with preview and metadata
+document.getElementById('file-upload').addEventListener('change', function() {
+    const fileInfo = document.getElementById('file-info');
+    const uploadPreview = document.getElementById('upload-preview');
+    const uploadedPreview = document.getElementById('uploaded-preview');
+    const filenameDisplay = document.getElementById('filename-display');
+    const filesizeDisplay = document.getElementById('filesize-display');
+    
+    if (this.files && this.files[0]) {
+        const file = this.files[0];
+        
+        // Display filename and size
+        fileInfo.innerHTML = `
+            <i class="fas fa-file-image"></i> ${file.name} 
+            <span class="file-size">(${(file.size/1024).toFixed(1)} KB)</span>
+        `;
+        
+        // Show preview if image
+        if (file.type.match('image.*')) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                uploadedPreview.src = e.target.result;
+                uploadPreview.style.display = 'block';
+                filenameDisplay.textContent = `File: ${file.name}`;
+                filesizeDisplay.textContent = `Size: ${(file.size/1024).toFixed(1)} KB`;
+            }
+            
+            reader.readAsDataURL(file);
+        }
+    } else {
+        fileInfo.textContent = '';
+        uploadPreview.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}
